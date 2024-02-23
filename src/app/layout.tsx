@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { QueryClientProvider } from "@/config/query-client";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +17,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <QueryClientProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <nav className="text-white">
+            <Link href="/">Home</Link>
+            <Link href="/settings">Settings</Link>
+            <input type="text" className="text-black" />
+          </nav>
+          {children}
+        </body>
+      </html>
+    </QueryClientProvider>
   );
 }
